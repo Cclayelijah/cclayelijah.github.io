@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/journal/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js"></script>
+
+    <title>Tic Tac Toe</title>
+  </head>
+  <body>
+    <div class="jumbotron text-center bg-primary">
+      <div class="row" style="height: auto;">
+          <div class="col-2"></div>
+          <h1 class="col-8">Tic Tac Toe</h1>
+          <button type="button" class="btn col-2" id="btnRestart" onclick="restart()">Restart</button>
+      </div>
+    </div>
+    <div class="jumbotron text-center">
+      <div class="container col-9">
+        <div class="left-pane"></div>
+          <div class="bg-primary p-0 middle-pane">
+            <div id="board">
+              <div class="row">
+                <div class="col" id="1" onmouseover="preview(1)" onmouseout="revert(1)" onclick="move(1)"></div>
+                <div class="col" id="2" onmouseover="preview(2)" onmouseout="revert(2)" onclick="move(2)"></div>
+                <div class="col" id="3" onmouseover="preview(3)" onmouseout="revert(3)" onclick="move(3)"></div>
+              </div>
+              <div class="row">
+                <div class="col" id="4" onmouseover="preview(4)" onmouseout="revert(4)" onclick="move(4)"></div>
+                <div class="col" id="5" onmouseover="preview(5)" onmouseout="revert(5)" onclick="move(5)"></div>
+                <div class="col" id="6" onmouseover="preview(6)" onmouseout="revert(6)" onclick="move(6)"></div>
+              </div>
+              <div class="row">
+                <div class="col" id="7" onmouseover="preview(7)" onmouseout="revert(7)" onclick="move(7)"></div>
+                <div class="col" id="8" onmouseover="preview(8)" onmouseout="revert(8)" onclick="move(8)"></div>
+                <div class="col" id="9" onmouseover="preview(9)" onmouseout="revert(9)" onclick="move(9)"></div>
+              </div>
+            </div>
+          </div>
+        <div class="right-pane col-3" id="scoreboard">
+          <h1 id="winner"></h1>
+          <h2 id="scoreboard">Scoreboard</h2>
+          <p id="xScore">X: 0</p>
+          <p id="oScore">O: 0</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

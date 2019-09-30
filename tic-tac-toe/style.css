@@ -1,0 +1,72 @@
+.middle-pane {
+  font-size: 42pt;
+  width: 500px;
+  height: 500px;
+  max-height: 100%;
+  max-width: 100%;
+  display: inline-block;
+  overflow: visible;
+}
+
+.left-pane {
+  text-align: center;
+  font-size: 42pt;
+  display: inline-block;
+  margin-bottom: 3%;
+}
+
+.right-pane {
+  text-align: center;
+  font-size: 24pt;
+  display: inline-block;
+  margin-top: 3%;
+  height: 100%;
+}
+
+#winner {
+
+}
+
+.h2{
+  font-size: 32pt;
+}
+
+.button {
+  position: relative;
+    top: 10px;
+  display: inline-block;
+}
+
+#btnRestart {
+  background-color:#EB6864;
+  font-size:18pt;
+  color:#000;
+  border-radius:25px;
+}
+
+#btnRestart:hover {
+  background-color:#eee;
+  color:#EB6864;
+}
+
+.row {
+  margin: 0;
+  height: 168px;
+  max-height: 34%;
+  width: 101%;
+  position: relative;
+}
+
+.col {
+  padding: 0;
+  margin: 2px;
+  color: black;
+  background-color: #eee;
+  line-height:  270%;
+}
+
+#board {
+  position: relative;
+    top: -2px;
+    left: -2px;
+}
