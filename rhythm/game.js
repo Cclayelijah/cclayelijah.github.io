@@ -38,11 +38,15 @@ class PhaserGame {
  */
 class MenuScene {
   create() {
+    this.input.on("pointerdown", () => {
+      this.scene.add("main", MainScene);
+      this.scene.start("main");
+    });
     this.cameras.main.setBackgroundColor("#566573");
     this.text = this.add.text(
       WIDTH / 2,
       HEIGHT / 2,
-      "MY RHYTHM GAME\n\nPress Space to start",
+      "MY RHYTHM GAME\n\nTap to start",
       { fontFamily: "arial", fontSize: "40px" }
     );
     this.text.setOrigin(0.5, 0.5);
@@ -70,13 +74,14 @@ class MainScene {
     );
     this.timeToFall = WIDTH; // ms, time for the note to go to the bottom. The lower the faster/hardest
     this.lastNoteIndex = 0; // last note spawned
-    this.offset = -200; // custom configuration set by user to resovle timing issues caused by latency.
+    this.offset = 0; // custom configuration set by user to resovle timing issues caused by latency.
     this.notes = []; // array of notes already spawned
     this.colliders = []; // colliders for player input vs falling note
     this.combo = 0;
     this.timeStamps = {};
     /*--------------*/
 
+    this.input.on("pointerdown", () => this.sendClick());
     // this is the red bar at the bottom. Does nothing, just for info
     this.noteCore = this.add.circle(WIDTH / 2, HEIGHT / 2, 70, 0x2c3e50);
     this.bounceCore;
@@ -89,12 +94,10 @@ class MainScene {
     this.comboText.setOrigin(0.5, 0.5);
 
     // Help text under the red bar
-    this.helpText = this.add.text(
-      WIDTH / 2,
-      550,
-      "Press z or x when the circle closes.",
-      { fontFamily: "arial", fontSize: "20px" }
-    );
+    this.helpText = this.add.text(WIDTH / 2, 550, "Tap to the beat", {
+      fontFamily: "arial",
+      fontSize: "20px",
+    });
     this.helpText.setOrigin(0.5, 0.5);
 
     // We create the audio object and play it
@@ -158,39 +161,37 @@ class MainScene {
     });
   }
 
+  sendClick() {
+    console.log("click");
+    let collider = this.add.circle(WIDTH / 2, HEIGHT / 2, 20, 0x566573);
+    this.physics.add.existing(collider);
+    this.tweens.add({
+      targets: collider,
+      scale: 4,
+      duration: 100,
+      alpha: 0,
+      onComplete: () => {
+        collider.destroy();
+      },
+    });
+
+    this.colliders.push(collider);
+
+    if (!this.bounceCore || !this.bounceCore.isPlaying())
+      this.bounceCore = this.tweens.add({
+        targets: this.noteCore,
+        scaleX: 1.1,
+        scaleY: 1.1,
+        duration: 80,
+        yoyo: true,
+        repeat: 0,
+        ease: "Sine.easeInOut",
+      });
+  }
+
   handlePlayerInput() {
     if (isKeyPressed("KeyZ") || isKeyPressed("KeyX")) {
-      // we create a new collider at the position of the red bar
-      let collider = this.add.circle(WIDTH / 2, HEIGHT / 2, 20, 0x566573);
-
-      // attach physics
-      this.physics.add.existing(collider);
-
-      // little tween to grow
-      this.tweens.add({
-        targets: collider,
-        scale: 4,
-        duration: 100,
-        alpha: 0,
-        onComplete: () => {
-          collider.destroy();
-        },
-      });
-
-      // add the collider to the list
-      this.colliders.push(collider);
-
-      // animate noteCore
-      if (!this.bounceCore || !this.bounceCore.isPlaying())
-        this.bounceCore = this.tweens.add({
-          targets: this.noteCore,
-          scaleX: 1.1,
-          scaleY: 1.1,
-          duration: 80,
-          yoyo: true,
-          repeat: 0,
-          ease: "Sine.easeInOut",
-        });
+      this.sendClick();
     }
   }
 
